@@ -22,9 +22,6 @@ const port = 3000;
 
 const store = new MongoStore({
     mongoUrl: dbUrl,
-    crypto: {
-        secret: process.env.EXPRESS_SESSION_SECRET,
-    },
     touchAfter: 24 * 3600,
     ttl: 604800,
 })
