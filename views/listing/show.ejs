@@ -1,0 +1,145 @@
+<% layout("layouts/boilerplate") %>
+
+<!-- saving map token value in var , so it can be access in map.js  -->
+<script>
+  const mapToken = "<%= process.env.MAP_TOKEN %>";
+  const listing = JSON.parse('<%- JSON.stringify(listing) %>');
+</script>
+
+<body>
+  <div class="row offset-lg-3 mb-4">
+    <div class="col-lg-8 show-card">
+      <h3>
+        <%= listing.title %>
+      </h3>
+      <img src="<%= listing.image.url %>" alt="<%= listing.image.alt %>" class="card-img-top show-img" loading="lazy">
+      <p class="mt-2">
+        Owned By : <i>
+          <%= listing.owner.username %>
+        </i>
+      </p>
+      <p class="mt-2">
+        <%= listing.description %>
+      </p>
+      <p>&#8377;<%= listing.price.toLocaleString("en-IN") %>
+      </p>
+      <p>
+        Located at : <%= listing.location %>
+      </p>
+      <p>
+        Country : <%= listing.country %>
+      </p>
+
+      <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+      <div class="show-btns">
+        <a href="/listings/<%= listing._id %>/edit" class="col-lg-4 col-md-3 col-6">
+          <button class=" col-12 btn full-wd-btn btn-dark new-form-btn">
+            Edit
+          </button>
+        </a>
+        <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST" class="col-lg-2 col-md-3 col-5 ms-1">
+          <button class="btn btn-dark col-12">Delete</button>
+        </form>
+      </div>
+      <% } %>
+
+      <!--------------------- review area start from here --------------------->
+      <hr class=" mt-4">
+
+      <!-- list of existing review -->
+      <div class="row ps-5">
+        <!-- if current login user alredy reviewed , then it can see its review here -->
+        <% if(currUser && userReview){ %>
+        <% for (let review of userReview) { %>
+        <div class="card col-lg-11 p-2 mb-3 review-box">
+          <h5 class="card-title m-0"> <i><%= review.author.name.firstname %> <%= review.author.name.lastname %></i></h5>
+          <p class="card-text mt-1 mb-0 review-content">
+            <%= review.comment %>
+          </p>
+          <p class="card-text m-0 review-rating">
+            <% for(let i=1; i<=review.rating; i++) { %>
+            <i class="fa-solid fa-star"></i>
+            <% } %>
+            <% for(let i=review.rating + 1; i<=5; i++) { %>
+            <i class="fa-regular fa-star"></i>
+            <% } %>
+          </p>
+          <form action="/listings/<%= listing._id %>/review/<%= review._id %>?_method=DELETE" method="post">
+            <button class="btn btn-sm btn-dark">Delete</button>
+          </form>
+        </div>
+        <% } %>
+        <% } %>
+
+        <!-- other reviews available for this listing -->
+        <% for (let review of otherReview) { %>
+        <div class="card col-lg-5 ms-lg-3 p-2 mb-3 review-box">
+          <h5 class="card-title m-0">@<%= review.author.username %></h5>
+          <p class="card-text mt-1 mb-0 review-content">
+            <%= review.comment %>
+          </p>
+          <p class="card-text m-0 review-rating">
+            <% for(let i=1; i<=review.rating; i++) { %>
+            <i class="fa-solid fa-star"></i>
+            <% } %>
+            <% for(let i=review.rating + 1; i<=5; i++) { %>
+            <i class="fa-regular fa-star"></i>
+            <% } %>
+          </p>
+        </div>
+        <% } %>
+      </div>
+
+      <%if(!currUser && !listing.reviews.length) { %>
+      <h4>No reviews available. Be the first to review.</h4>
+      <% } %>
+
+      <!-- to add new review -->
+      <% if(currUser){ %>
+      <div class="review-form mt-3">
+        <h4>Share Your Experience</h4>
+        <form action="/listings/<%= listing.id %>/review" method="post" novalidate class="needs-validation">
+          <label class=" form-label" for="rating">Rating</label>
+          <!-- <input class="form-range" type="range" name="review[rating]" id="rating" min="1" max="5"> -->
+          <fieldset class="starability-slot">
+            <input type="radio" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating" />
+
+            <input type="radio" id="rate-1" name="review[rating]" value="1" checked />
+            <label for="rate-1" title="Terrible">1 star</label>
+
+            <input type="radio" id="rate-2" name="review[rating]" value="2" />
+            <label for="rate-2" title="Not good">2 stars</label>
+
+            <input type="radio" id="rate-3" name="review[rating]" value="3" />
+            <label for="rate-3" title="Average">3 stars</label>
+
+            <input type="radio" id="rate-4" name="review[rating]" value="4" />
+            <label for="rate-4" title="Very good">4 stars</label>
+
+            <input type="radio" id="rate-5" name="review[rating]" value="5" />
+            <label for="rate-5" title="Amazing">5 stars</label>
+
+          </fieldset>
+
+          <label class="form-label" for="comment">Comment</label>
+          <textarea class="form-control" name="review[comment]" id="comment" required placeholder="Describe your experience..." rows="5" style="resize: none;"></textarea>
+          <div class="invalid-feedback">Please share your experience with us</div>
+
+          <button class="btn btn-outline-dark mt-3">Submit</button>
+        </form>
+      </div>
+      <% } %>
+
+    </div>
+
+    <!----------------- Display a Map  ------------->
+
+    <div class="col-xsm-11 col-sm-11 col-lg-8 row ms-lg-2 mt-3">
+      <h4>Where you'll be </h4>
+      <div id="map" class="col-12"></div>
+    </div>
+  </div>
+</body>
+
+<!-- ading map functionality using map.js file. which sets the co-ordinates -->
+<script src="/js/map.js"></script>

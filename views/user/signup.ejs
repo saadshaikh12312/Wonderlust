@@ -1,0 +1,47 @@
+<% layout("layouts/boilerplate") %>
+
+<body>
+  <div class="row offset-md-2 offset-lg-3 ">
+    <div class="col-md-10 col-lg-8">
+      <h3 class="mb-3">Create a new account</h3>
+      <form action="/signup" method="post" novalidate class="needs-validation">
+        <div class="row">
+          <div class="mb-1 col-6">
+            <label for="firstname" class="form-label">Firstname :</label>
+            <input type="text" class="form-control" placeholder="First name" name="name[firstname]" required>
+            <div class="valid-feedback">Looks Good!</div>
+          </div>
+          <div class="mb-1 col-6">
+            <label for="lastname" class="form-label">Lastname :</label>
+            <input type="text" class="form-control" placeholder="Surname" name="name[lastname]" required>
+            <div class="valid-feedback">Looks Good!</div>
+          </div>
+        </div>
+
+        <div class="mb-1">
+          <label for="username" class="form-label">Username :</label>
+          <input type="text" class="form-control" placeholder="username here" name="username" required>
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Username must be at least 3 characters long and unique.</div>
+        </div>
+
+        <div class="mb-1">
+          <label for="email" class="form-label">email :</label>
+          <input type="email" class="form-control" placeholder="email here" name="email" required>
+          <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+
+        <div class="mb-1">
+          <label for="password" class="form-label">password :</label>
+          <input type="password" class="form-control" placeholder="password here" name="password" minlength="6" required>
+          <div class="invalid-feedback">Password must be at least 6 characters long.</div>
+        </div>
+
+        <button class="btn btn-success mt-4 col-md-6 col-6 offset-md-3 offset-3">
+          Signup
+        </button>
+        <div class="text-center mt-2">alredy have account?<a href="/login"> login here.</a></div>
+      </form>
+    </div>
+  </div>
+</body>

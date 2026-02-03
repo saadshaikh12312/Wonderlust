@@ -1,0 +1,114 @@
+<% layout("layouts/boilerplate") %>
+
+<body>
+
+
+  <!-- ------------------------------ filtere / category ------------------------------ -->
+  <div class="additional-nav mt-1 mb-1">
+    <div class="filter-wrapper ">
+      <button class="scroll-btn left" aria-label="Scroll left">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="filter-slider">
+        <a href="/listings?toprated=true" class="filter-item <%= lastSearch == 'Top Rated' ? 'active' : '' %>">
+          <i class="fa-solid fa-star"></i>
+          <p>Top Rated</p>
+        </a>
+
+        <a href="/listings?category=mountains" class="filter-item <%= lastSearch == 'mountains' ? 'active' : '' %>">
+          <i class="fa-solid fa-mountain"></i>
+          <p>Mountains</p>
+        </a>
+
+        <a href="/listings?category=beachside" class="filter-item <%= lastSearch == 'beachside' ? 'active' : '' %>">
+          <i class="fa-solid fa-umbrella-beach"></i>
+          <p>Beachside</p>
+        </a>
+
+        <a href="/listings?category=lakeside " class="filter-item <%= lastSearch == 'lakeside' ? 'active' : '' %>">
+          <i class="fa-solid fa-water"></i>
+          <p>Lakeside</p>
+        </a>
+
+        <a href="/listings?category=city" class="filter-item <%= lastSearch == 'city' ? 'active' : '' %>">
+          <i class="fa-solid fa-city"></i>
+          <p>City Escapes</p>
+        </a>
+
+        <a href="/listings?category=downtown" class="filter-item <%= lastSearch === 'downtown' ? 'active' : '' %>">
+          <i class="fa-solid fa-building-columns"></i>
+          <p>Downtown</p>
+        </a>
+
+        <a href="/listings?category=adventure" class="filter-item <%= lastSearch == 'adventure' ? 'active' : '' %>">
+          <i class="fa-solid fa-person-hiking"></i>
+          <p>Adventure</p>
+        </a>
+
+        <a href="/listings?category=luxury " class="filter-item <%= lastSearch == 'luxury' ? 'active' : '' %>">
+          <i class="fa-solid fa-gem"></i>
+          <p>Luxury</p>
+        </a>
+
+        <a href="/listings?category=budget" class="filter-item <%= lastSearch == 'budget' ? 'active' : '' %>">
+          <i class="fa-solid fa-wallet"></i>
+          <p>Budget Stays</p>
+        </a>
+
+        <a href="/listings?category=unique" class="filter-item <%= lastSearch == 'unique' ? 'active' : '' %>">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <p>Unique Stays</p>
+        </a>
+
+        <a href="/listings?category=romantic " class="filter-item <%= lastSearch == 'romantic' ? 'active' : '' %>">
+          <i class="fa-solid fa-heart"></i>
+          <p>Romantic</p>
+        </a>
+
+        <a href="/listings?category=family" class="filter-item <%= lastSearch == 'family' ? 'active' : '' %>">
+          <i class="fa-solid fa-people-roof"></i>
+          <p>Family Friendly</p>
+        </a>
+
+
+
+      </div>
+      <button class="scroll-btn right" aria-label="Scroll right">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="gst-switch">
+      <div class="form-check-reverse form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked">
+        <label class="form-check-label" for="switchCheckChecked">Add Gst</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------------ cards / listing ------------------------------ -->
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-4 row-cols-xxl-5">
+    <!-- // card for each listing : thumbnail listing card -->
+    <% for (let list of listing){ %>
+    <a href="/listings/<%= list._id %>" class="text-deco">
+      <div class="card listing-card ">
+        <img src="<%= list.image.url %>" class="card-img-top" alt="<%= list.image.alt %>" loading="lazy">
+        <div class="card-img-overlay"></div>
+        <div class="card-body">
+          <p class="card-text">
+            <b>
+              <%= list.title %>
+            </b> <br>
+            <% let gstPrice = list.price * 1.18; %>
+            &#8377;<span class="without-gst"><%= list.price.toLocaleString("en-IN") %></span><span class="gst-price hide-item"><%= gstPrice.toFixed(0).toLocaleString("en-IN") %> with 18% gst </span> / night
+            <% if(list.avgRating) { %>
+            <span class="ms-2 rating"><i class="fa-solid fa-star"></i><%= list.avgRating.toFixed(2) %></span>
+            <% } %>
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+</body>

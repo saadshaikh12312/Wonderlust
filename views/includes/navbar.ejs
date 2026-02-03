@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary position-sticky top-0 border-bottom ">
+  <div class="container-fluid">
+
+    <div class="d-flex justify-content-between right-nav-items">
+      <a class="navbar-brand" href="/listings">
+        <img src="/images/WonderlustLogo.png" alt="Wonderlust" loading="lazy" width="30" height="24" class="logo-img">
+      </a>
+
+      <button class="navbar-toggler toggle-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse navbar-collapse-color" id="navbarNavAltMarkup">
+
+        <div class="navbar-nav me-auto mb-2 mb-md-0 drop-down-nav">
+          <li class="nav-item">
+            <a class="nav-link " href="/listings">Explore</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/listings/new">List Your Place</a>
+          </li>
+
+          <% if(!currUser) { %>
+          <li class="nav-item">
+            <a href="/signup">
+              <div class="d-md-none btn btn-success col-12 mb-2">signup</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/login">
+              <div class="d-md-none btn btn-primary col-12 mb-2">login</div>
+            </a>
+          </li>
+          <% } else { %>
+          <li class="nav-item">
+            <form action="/logout" method="post">
+              <button class="d-md-none btn btn-danger col-12 mb-2"> logout </button>
+            </form>
+          </li>
+          <% } %>
+        </div>
+      </div>
+
+    </div>
+
+    <form class="d-flex me-md-3 nav-search" role="search">
+      <input class="form-control search-input me-2" type="search" placeholder="Search" aria-label="Search" name="q" <% if(lastSearch) { %> value="<%= lastSearch %>" <%  } %> />
+      <button class=" btn btn-outline-success search-btn" type="submit">
+        Search
+      </button>
+    </form>
+
+    <!-- authentication buttions -->
+    <% if(!currUser){ %>
+    <div class="d-none d-md-flex gap-2 login-btns">
+      <a href="/signup" class="btn btn-outline-success round-btn ">signup</a>
+      <a href="/login" class="btn btn-outline-primary round-btn me-lg-4 me-2">login</a>
+    </div>
+    <% } %>
+
+    <% if(currUser){ %>
+    <div class="d-none d-md-flex login-btns">
+      <form action="/logout" method="post">
+        <button class="btn btn-outline-danger round-btn">logout</button>
+      </form>
+    </div>
+    <% } %>
+  </div>
+
+  <div class="search-bar">
+    <form class="d-flex me-md-3 position-relative" role="search" action="/listings">
+      <input class="form-control search-input me-2" type="search" placeholder="Search" aria-label="Search" name="q" <% if(lastSearch) { %> value="<%= lastSearch %>" <%  } %> />
+      <button class="btn btn-outline-success search-btn" type="submit">
+        Search
+      </button>
+    </form>
+  </div>
+</nav>

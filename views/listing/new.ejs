@@ -1,0 +1,68 @@
+<% layout("layouts/boilerplate") %>
+
+<body>
+  <div class="row offset-md-2 offset-lg-3 ">
+    <div class="col-md-10 col-lg-8">
+      <h3 class="mb-3">Add new Listing</h3>
+
+      <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+        <div class="mb-1">
+          <label for="title" class="form-label">Title :</label>
+          <input type="text" class="form-control" placeholder="Title here" name="listing[title]" required>
+          <div class="valid-feedback">Nice title</div>
+        </div>
+        <div class="mb-1">
+          <label for="description" class="form-label">Description</label>
+          <textarea name="listing[description]" style="resize: none;" class="form-control" placeholder="Write some description... " textarea required></textarea>
+          <div class="invalid-feedback">Need a short description</div>
+        </div>
+        <div class="mb-1">
+          <label for="image" class="form-label">Image :</label>
+          <input type="file" class="form-control" placeholder="Paste image url here..." name="listing[image]" required>
+
+        </div>
+        <div class="mb-1 row">
+          <div class="col-md-6">
+            <label for="price" class="form-label">Price :</label>
+            <input type="number" placeholder="what's the price ?" class="form-control" name="listing[price]" min="1" required>
+            <div class="invalid-feedback">Price should be valid</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="listing[category]" class="form-label">Category :</label>
+            <select id="category" name="listing[category]" class="form-control" required>
+              <option value="" disabled selected hidden>Seclect category ....</option>
+
+              <option value="mountains">Mountains</option>
+              <option value="beachside">Beachside</option>
+              <option value="lakeside">Lakeside</option>
+              <option value="city">City</option>
+              <option value="downtown">Downtown</option>
+              <option value="adventure">Adventure</option>
+              <option value="luxury">Luxury</option>
+              <option value="budget">Budget Stays</option>
+              <option value="unique">Unique Stays</option>
+              <option value="romantic">Romantic</option>
+              <option value="family-friendly">Family Friendly</option>
+            </select>
+            <div class="invalid-feedback">Please select a category</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3 col-md-8">
+            <label for="location" class="form-label">Location :</label>
+            <input type="text" class="form-control" placeholder="located at" name="listing[location]" required>
+            <div class="invalid-feedback">Location is required</div>
+          </div>
+          <div class="mb-3 col-md-4">
+            <label for="country" class="form-label">Country :</label>
+            <input type="text" class="form-control" placeholder="from country" name="listing[country]" required>
+            <div class="invalid-feedback">Country is required</div>
+          </div>
+        </div>
+        <button class="new-form-btn btn btn-dark mb-5 brand-border">Add listing</button>
+      </form>
+    </div>
+  </div>
+
+</body>
