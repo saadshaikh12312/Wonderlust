@@ -79,6 +79,15 @@ app.use("/", usersRouter);
 // other routes
 app.use("/", otherRouter);
 
+app.use("/", (req, res) => {
+    res.redirect("/listings");
+})
+
+//   404-error message for request on other path
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page not found!", 404));
+});
+
 
 // --------------------- server initialization -------------------------
 
