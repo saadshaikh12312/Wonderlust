@@ -30,7 +30,7 @@ const sessionOptions = {
     secret: process.env.EXPRESS_SESSION_SECRET,
     store,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: truefalse,
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,

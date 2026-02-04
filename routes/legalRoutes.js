@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/privacy", (req, res) => {
-    res.render("others/privacy.ejs")
+    res.render("legal/privacy.ejs")
 });
 
 router.get("/terms", (req, res) => {
-    res.render("others/terms.ejs")
+    res.render("legal/terms.ejs")
 });
 
 module.exports = router;
