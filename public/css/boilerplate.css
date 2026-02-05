@@ -344,7 +344,7 @@ main {
 /* ---------- scroll btns ---------- */
 .scroll-btn {
     background: rgba(128, 128, 128, 0.155);
-    border: 1px solid black;
+    /* border: 1px solid black; */
     border-radius: 100%;
     cursor: pointer;
     font-size: 1rem;
@@ -399,6 +399,21 @@ main {
 
     .gst-switch label {
         font-size: 0.75rem;
+    }
+
+    .additional-nav{
+        height: 2.5rem;
+    }
+
+    .filter-item i,p {
+        font-size: 1.2rem;
+    }
+
+    .scroll-btn{
+        font-size: 0.8rem;
+        padding: 0.3rem;
+        margin-bottom: 0.5rem;
+        border: none;
     }
 }
 
